@@ -40,7 +40,7 @@ class SiameseLSTM(object):
 		# Get lstm cell output
 		#try:
 		with tf.name_scope("bw"+scope),tf.variable_scope("bw"+scope):
-			outputs, _, _ = tf.nn.bidirectional_rnn(lstm_fw_cell_m, lstm_bw_cell_m, x, dtype=tf.float32)
+			outputs, _ = tf.nn.bidirectional_dynamic_rnn(lstm_fw_cell_m, lstm_bw_cell_m, x, dtype=tf.float32)
 			#         except Exception: # Old TensorFlow version only returns outputs not states
 			#             outputs = tf.nn.bidirectional_rnn(lstm_fw_cell_m, lstm_bw_cell_m, x,
 			#                                             dtype=tf.float32)
