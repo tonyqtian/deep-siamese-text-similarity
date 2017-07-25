@@ -15,19 +15,20 @@ tf.flags.DEFINE_string("eval_filepath", "match_valid.tsv", "Evaluate on this dat
 tf.flags.DEFINE_string("vocab_filepath", "runs/1479874609/checkpoints/vocab", "Load training time vocabulary (Default: None)")
 tf.flags.DEFINE_string("model", "runs/1479874609/checkpoints/model-32000", "Load trained model checkpoint (Default: None)")
 
+
 # Misc Parameters
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
 tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on devices")
 
-
 FLAGS = tf.flags.FLAGS
 FLAGS._parse_flags()
 print("\nParameters:")
+
 for attr, value in sorted(FLAGS.__flags.items()):
 	print("{}={}".format(attr.upper(), value))
 print("")
 
-if FLAGS.eval_filepath==None or FLAGS.vocab_filepath==None or FLAGS.model==None :
+if FLAGS.eval_filepath is None or FLAGS.vocab_filepath is None or FLAGS.model is None :
 	print("Eval or Vocab filepaths are empty.")
 	exit()
 
@@ -44,8 +45,8 @@ print(checkpoint_file)
 graph = tf.Graph()
 with graph.as_default():
 	session_conf = tf.ConfigProto(
-	  allow_soft_placement=FLAGS.allow_soft_placement,
-	  log_device_placement=FLAGS.log_device_placement)
+		allow_soft_placement=FLAGS.allow_soft_placement,
+		log_device_placement=FLAGS.log_device_placement)
 	sess = tf.Session(config=session_conf)
 	with sess.as_default():
 		# Load the saved meta graph and restore variables

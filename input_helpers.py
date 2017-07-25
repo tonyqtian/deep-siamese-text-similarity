@@ -15,6 +15,7 @@ from preprocess import MyVocabularyProcessor
 # imp.reload(sys)
 # sys.setdefaultencoding("utf-8")
 
+
 class InputHelper(object):
     
     def getTsvData(self, filepath):
