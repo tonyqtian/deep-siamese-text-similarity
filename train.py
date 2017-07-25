@@ -38,7 +38,7 @@ for attr, value in sorted(FLAGS.__flags.items()):
 print("")
 
 if FLAGS.training_files==None:
-    print "Input Files List is empty. use --training_files argument."
+    print("Input Files List is empty. use --training_files argument.")
     exit()
  
 max_document_length=30
@@ -132,7 +132,7 @@ with tf.Graph().as_default():
         d[d>1.0]=0
         accuracy = np.mean(y_batch==d)
         print("TRAIN {}: step {}, loss {:g}, acc {:g}".format(time_str, step, loss, accuracy))
-        print y_batch, dist, d
+        print(y_batch, dist, d)
 
     def dev_step(x1_batch, x2_batch, y_batch):
         """
@@ -160,7 +160,7 @@ with tf.Graph().as_default():
         d[d>1.0]=0
         accuracy = np.mean(y_batch==d)
         print("DEV {}: step {}, loss {:g}, acc {:g}".format(time_str, step, loss, accuracy))
-        print y_batch, dist, d
+        print(y_batch, dist, d)
         return accuracy
 
     # Generate batches
@@ -169,11 +169,11 @@ with tf.Graph().as_default():
 
     ptr=0
     max_validation_acc=0.0
-    for nn in xrange(sum_no_of_batches*FLAGS.num_epochs):
-        batch = batches.next()
+    for nn in range(sum_no_of_batches*FLAGS.num_epochs):
+        batch = next(batches)
         if len(batch)<1:
             continue
-        x1_batch,x2_batch, y_batch = zip(*batch)
+        x1_batch,x2_batch, y_batch = list(zip(*batch))
         if len(y_batch)<1:
             continue
         train_step(x1_batch, x2_batch, y_batch)
@@ -185,7 +185,7 @@ with tf.Graph().as_default():
             for db in dev_batches:
                 if len(db)<1:
                     continue
-                x1_dev_b,x2_dev_b,y_dev_b = zip(*db)
+                x1_dev_b,x2_dev_b,y_dev_b = list(zip(*db))
                 if len(y_dev_b)<1:
                     continue
                 acc = dev_step(x1_dev_b, x2_dev_b, y_dev_b)
